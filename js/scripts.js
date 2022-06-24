@@ -11,9 +11,10 @@ function entrarNaSala() {
         name: nome
     }
 
-    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", name)
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", name);
+    promessa.catch(alertaErro); 
 
-    setInterval(manterConexao, 5000);
+    promessa.then(setInterval(manterConexao, 5000));
 }
 
 function manterConexao() {
@@ -27,8 +28,10 @@ function manterConexao() {
 function getData() {
     const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
 
-    promessa.then(processarResposta);    
+    promessa.then(processarResposta);   
 }
+
+setInterval(getData, 10000);
 
 function processarResposta(resposta) {
     console.log(resposta.data);
@@ -40,6 +43,8 @@ function processarResposta(resposta) {
 function renderizarMensagens() {
 
     let container = document.querySelector(".container");
+
+    container.innerHTML = "";
 
     for(let i = 0; i < mensagens.length; i++) {
 
@@ -69,6 +74,9 @@ function renderizarMensagens() {
 
         }
     }
+
+    let ultimaMensagem =  document.querySelector(".container>div:last-child");
+    ultimaMensagem.scrollIntoView();    
 }
 
 function cadastrarMensagem() {
@@ -82,19 +90,26 @@ function cadastrarMensagem() {
 		type: "message",
     };
 
-    console.log(novaMensagem);
-
     const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem);
     promessa.then(getData);
-    promessa.catch(alertaErro);   
+    promessa.catch(console.log("error"));
 }
 
 function alertaErro(error) {
     console.log(error.response.status);
     if (error.response.status === 400) {
-      nome = prompt("Nome de usuário existente. Digite outro nome de usuário");
+      nome = prompt("Nome de usuário existente. Digite outro nome de usuário:");
+      entrarNaSala();
     }
-  }
+}
+
+document.addEventListener("keypress", function(e) {
+    if(e.key === "Enter") {
+        const btn = document.querySelector(".enviar");
+        btn.click();
+    }
+});
+
 
 function chamarMenu () {
 
