@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bate-Papo UOL</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="topo">
+        <img src="/img/icone.png">
+        <ion-icon name="people" onclick="chamarMenu()"></ion-icon>
+    </div>
+
+    <div class="container">
+        
+    </div>
+
+    <div class="menu">
+        <div class="fundo" onclick="fecharMenu()"></div>
+        <div class="informacoes">
+            <div><p>Escolha um contato para enviar mensagem:</p></div>
+            <div class="contatos">
+                <div>
+                    <ion-icon name="people"></ion-icon> 
+                    Todos 
+                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                </div>
+                <div>
+                    <ion-icon name="person-circle"></ion-icon> 
+                    João 
+                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                </div>
+                <div>
+                    <ion-icon name="person-circle"></ion-icon> 
+                    Maria
+                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                </div>
+            </div>
+            <div><p>Escolha uma visibilidade</p></div>
+            <div class="visibilidade">
+                <div>
+                    <ion-icon name="lock-open"></ion-icon>
+                    Público
+                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                </div>
+                <div>
+                    <ion-icon name="lock-closed"></ion-icon>
+                    Reservadamente
+                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mensagem">
+        <input type="text" placeholder="Escreva aqui..." id="mensagem">
+        <ion-icon name="paper-plane-outline" class="enviar" onclick="cadastrarMensagem()"></ion-icon>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="/js/scripts.js"></script>
+    
+</body>
+</html>
