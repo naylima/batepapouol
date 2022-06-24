@@ -1,6 +1,7 @@
 @media  (max-width: 614px) {
     * {
-        font-family: 'Roboto', sans-serif;        
+        font-family: 'Roboto', sans-serif;
+        overflow-x: hidden; 
     }
 
     .topo {
