@@ -1,5 +1,6 @@
 
 let mensagens = [];
+let contatos = [];
 getData();
 
 let nome = prompt("Qual seu nome de usuário?");
@@ -28,7 +29,10 @@ function manterConexao() {
 function getData() {
     const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
 
-    promessa.then(processarResposta);   
+    promessa.then(processarResposta); 
+    
+    const promessaContatos = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+    promessaContatos.then(processarRespostaContatos);
 }
 
 setInterval(getData, 10000);
@@ -37,7 +41,14 @@ function processarResposta(resposta) {
     console.log(resposta.data);
     mensagens = resposta.data;
 
-    renderizarMensagens()
+    renderizarMensagens();
+}
+
+function processarRespostaContatos(resposta) {
+    console.log(resposta.data);
+    contatos = resposta.data;
+
+    buscarContatos();
 }
 
 function renderizarMensagens() {
@@ -120,3 +131,26 @@ function fecharMenu() {
     let menu = document.querySelector(".menu");
     menu.style.visibility = 'hidden';  
 }
+
+function buscarContatos() {
+     
+    let contatosDisplay = document.querySelector(".contatos");
+
+    contatosDisplay.innerHTML = `<div>
+                                    <ion-icon name="people"></ion-icon> 
+                                    Todos 
+                                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                                </div>`;
+
+    for(let i = 0; i < contatos.length; i++) {
+        
+        contatosDisplay.innerHTML += `<div>
+                                        <ion-icon name="person-circle"></ion-icon> 
+                                        ${contatos[i].name} 
+                                        <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                                    </div>`
+                                    }
+    
+    let visibilidade = document.querySelector(".visibilidade");
+
+};
