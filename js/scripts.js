@@ -87,12 +87,11 @@ function cadastrarMensagem() {
         from: nome,
 		to: "Todos",
 		text: mensagem,
-		type: "message",
+		type: "message"
     };
 
     const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem);
-    promessa.then(getData);
-    promessa.catch(console.log("error"));
+    promessa.then(getData).catch(() => console.log(window.location.reload()));
 }
 
 function alertaErro(error) {
