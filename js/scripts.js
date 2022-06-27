@@ -36,7 +36,7 @@ function getData() {
     
 }
 
-setInterval(getData, 10000);
+setInterval(getData, 3000); //atualização das mensagens a cada 3 segundos
 
 function processarResposta(resposta) {
     console.log(resposta.data);
@@ -69,7 +69,9 @@ function renderizarMensagens() {
                 </p>
             </div>`
             break;
-            case "private_message" : 
+            case "private_message" :  
+            
+            // manutenção das mensagens privadas somente aos usuários envolvidos
 
                 if ( mensagens[i].from == nome || mensagens[i].to == nome ) {
                     container.innerHTML += 
@@ -90,7 +92,7 @@ function renderizarMensagens() {
         }
 
     }
-
+    // rolagem automática
     let ultimaMensagem =  document.querySelector(".container>div:last-child");
     ultimaMensagem.scrollIntoView();    
 }
