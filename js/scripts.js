@@ -69,15 +69,26 @@ function renderizarMensagens() {
                 </p>
             </div>`
             break;
-            case "private_message" : container.innerHTML += 
-            `<div class = "reservado"> 
-                <p>
-                    <hora>(${mensagens[i].time})</hora> <b>${mensagens[i].from}</b> para <b>${mensagens[i].to}</b>: ${mensagens[i].text}
-                </p>
-            </div>`
+            case "private_message" : 
+
+                if ( mensagens[i].from == nome || mensagens[i].to == nome ) {
+                    container.innerHTML += 
+                    `<div class = "reservado"> 
+                        <p>
+                            <hora>(${mensagens[i].time})</hora> 
+                            <b>${mensagens[i].from}</b> para 
+                            <b>${mensagens[i].to}</b>: ${mensagens[i].text}
+                        </p>
+                    </div>`
+                }
+                else {
+                    container.innerHTML += "";
+                }
+
             break;
 
         }
+
     }
 
     let ultimaMensagem =  document.querySelector(".container>div:last-child");
@@ -97,6 +108,8 @@ function cadastrarMensagem() {
 
     const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem);
     promessa.then(getData).catch(() => console.log(window.location.reload()));
+
+    document.querySelector("#mensagem").value = "";
 }
 
 function alertaErro(error) {
