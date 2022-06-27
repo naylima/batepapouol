@@ -17,35 +17,43 @@
         <ion-icon name="people" onclick="chamarMenu()"></ion-icon>
     </div>
 
-    <div class="container">
-        
-    </div>
+    <div class="container"></div>
 
     <div class="menu">
         <div class="fundo" onclick="fecharMenu()"></div>
         <div class="informacoes">
+
             <div><p>Escolha um contato para enviar mensagem:</p></div>
+            
             <div class="contatos"></div>
+            
             <div class="visibilidade">
+
                 <p>Escolha uma visibilidade</p>
-                <div>
+
+                <div onclick="escolherVisibilidade(this)">
                     <ion-icon name="lock-open"></ion-icon>
-                    Público
-                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                    <span class="tipo">Público</span>
+                    <ion-icon class="visto"  name="checkmark-sharp"></ion-icon>
                 </div>
-                <div>
+
+                <div onclick="escolherVisibilidade(this)">
                     <ion-icon name="lock-closed"></ion-icon>
-                    Reservadamente
-                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
-                </div>            
+                    <span class="tipo">Reservadamente</span>
+                    <ion-icon class="visto"  name="checkmark-sharp"></ion-icon>
+                </div>  
+
             </div>
-            </div>
+        
         </div>
     </div>
 
     <div class="mensagem">
-        <input type="text" placeholder="Escreva aqui..." id="mensagem" required>
-        <ion-icon name="paper-plane-outline" class="enviar" onclick="cadastrarMensagem()"></ion-icon>
+        <div>
+            <input type="text" placeholder="Escreva aqui..." id="mensagem">
+            <span class="enviando"></span>
+        </div>        
+        <ion-icon name="paper-plane-outline" class="enviar" onclick="cadastrarMensagem()"></ion-icon>        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

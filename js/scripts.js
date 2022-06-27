@@ -1,9 +1,13 @@
+let nome = prompt("Qual seu nome de usuário?");
+
 
 let mensagens = [];
 let contatos = [];
-getData();
+let destinatario = "Todos";
+let visibilidade = "message";
 
-let nome = prompt("Qual seu nome de usuário?");
+getData();
+getContatos();
 entrarNaSala();
 
 function entrarNaSala() {
@@ -28,11 +32,8 @@ function manterConexao() {
 
 function getData() {
     const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");
-
     promessa.then(processarResposta); 
     
-    const promessaContatos = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
-    promessaContatos.then(processarRespostaContatos);
 }
 
 setInterval(getData, 10000);
@@ -42,13 +43,6 @@ function processarResposta(resposta) {
     mensagens = resposta.data;
 
     renderizarMensagens();
-}
-
-function processarRespostaContatos(resposta) {
-    console.log(resposta.data);
-    contatos = resposta.data;
-
-    buscarContatos();
 }
 
 function renderizarMensagens() {
@@ -96,9 +90,9 @@ function cadastrarMensagem() {
 
     const novaMensagem = {
         from: nome,
-		to: "Todos",
+		to: destinatario,
 		text: mensagem,
-		type: "message"
+		type: visibilidade
     };
 
     const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", novaMensagem);
@@ -113,6 +107,7 @@ function alertaErro(error) {
     }
 }
 
+// envio de mensagem com enter - bônus *
 document.addEventListener("keypress", function(e) {
     if(e.key === "Enter") {
         const btn = document.querySelector(".enviar");
@@ -121,6 +116,7 @@ document.addEventListener("keypress", function(e) {
 });
 
 
+// menu lateral com os contatos do servidor - bônus *
 function chamarMenu () {
 
     let menu = document.querySelector(".menu");
@@ -132,25 +128,69 @@ function fecharMenu() {
     menu.style.visibility = 'hidden';  
 }
 
-function buscarContatos() {
-     
+// buscar os usuários online no servidor - bônus *
+
+function getContatos() {
+
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+    promessa.then(processarRespostaContatos);
+
+}
+
+function processarRespostaContatos(resposta) {
+    console.log(resposta.data);
+    contatos = resposta.data;
+
+    renderizarParticipantes();
+}
+
+setInterval(getContatos, 10000); // atualizar a lista de usuários online a casa 10 segundos
+
+// mostrar a lista de usuários no menu lateral
+function renderizarParticipantes() {
+
     let contatosDisplay = document.querySelector(".contatos");
 
-    contatosDisplay.innerHTML = `<div>
+    contatosDisplay.innerHTML = `<div onClick="escolherDestinatario(this)">
                                     <ion-icon name="people"></ion-icon> 
-                                    Todos 
-                                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+                                    <span class="nome">Todos</span>
+                                    <ion-icon class="check" name="checkmark-sharp"></ion-icon>                                   
                                 </div>`;
 
     for(let i = 0; i < contatos.length; i++) {
-        
-        contatosDisplay.innerHTML += `<div>
-                                        <ion-icon name="person-circle"></ion-icon> 
-                                        ${contatos[i].name} 
-                                        <ion-icon class="check" name="checkmark-sharp"></ion-icon>
-                                    </div>`
-                                    }
-    
-    let visibilidade = document.querySelector(".visibilidade");
 
+        contatosDisplay.innerHTML += 
+                                    `<div onClick="escolherDestinatario(this)">
+                                        <ion-icon name="person-circle"></ion-icon> 
+                                        <span class="nome">${contatos[i].name}</span>
+                                        <ion-icon class="check" name="checkmark-sharp"></ion-icon>                                       
+                                    </div>`
+    }
 };
+
+// escolher um destinatário para enviar mensagem
+function escolherDestinatario(elemento) {
+    const span = elemento.querySelector(".nome");
+    destinatario = span.innerText;
+    console.log(destinatario); 
+    
+    document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`;
+}
+
+// escolher o tipo de mensagem: pública ou privada
+function escolherVisibilidade(elemento) {
+    const span = elemento.querySelector(".tipo");
+
+    if(span.innerText === "Público") {
+        visibilidade = "message";
+        document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`;
+
+    }
+
+    if(span.innerText === "Reservadamente") {
+        visibilidade = "private_message"
+
+        document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario} (reservadamente)`;
+    }
+    console.log(visibilidade);
+}
