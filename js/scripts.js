@@ -173,7 +173,7 @@ function renderizarParticipantes() {
     for(let i = 0; i < contatos.length; i++) {
 
         contatosDisplay.innerHTML += 
-                                    `<div onClick="escolherDestinatario(this)">
+                                    `<div onClick="escolherDestinatario(this)" class="contato">
                                         <ion-icon name="person-circle"></ion-icon> 
                                         <span class="nome">${contatos[i].name}</span>
                                         <ion-icon class="check" name="checkmark-sharp"></ion-icon>                                       
@@ -184,27 +184,31 @@ function renderizarParticipantes() {
 // escolher um destinatário para enviar mensagem
 function escolherDestinatario(elemento) {
     const span = elemento.querySelector(".nome");
-    destinatario = span.innerText;
-    console.log(destinatario); 
+    destinatario = span.innerText;   
     
-    document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`;
+    document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`; 
 }
 
 // escolher o tipo de mensagem: pública ou privada
 function escolherVisibilidade(elemento) {
     const span = elemento.querySelector(".tipo");
+    const publico = document.querySelector("#publico");
+    const privado = document.querySelector("#privado");
 
     if(span.innerText === "Público") {
         visibilidade = "message";
         document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`;
-        
-        
+
+        publico.classList.add("selecionado");
+        privado.classList.remove("selecionado");
     }
 
     if(span.innerText === "Reservadamente") {
         visibilidade = "private_message"
 
         document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario} (reservadamente)`;
+        
+        privado.classList.add("selecionado");
+        publico.classList.remove("selecionado");
     }
-    console.log(visibilidade);
 }

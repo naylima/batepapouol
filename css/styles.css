@@ -201,15 +201,18 @@
         background-color: #FFFFFF;
     }
 
-    .visibilidade .visto {
+    .check {
         width: 15px;
         font-weight: bold;
         color: #28BB25;
         background-color: #FFFFFF;
-        visibility: hidden;       
+        position: absolute;
+        right: -5px;
+        display: block;  
+    }
 
-        position: fixed;
-        right: 15px;   
+    .selecionado .check {
+        display: inline;
     }
 }
 
@@ -355,6 +358,7 @@ hora {
 
 .contatos,
 .visibilidade {
+    width: 200px;
     background-color: #FFFFFF;
 }
 
@@ -385,8 +389,9 @@ hora {
     font-weight: bold;
     color: #28BB25;
     background-color: #FFFFFF;
-    visibility: hidden;
+    display: none;  
+}
 
-    position: fixed;
-    right: 15px;
+.selecionado .check {
+    display: inline;
 }
