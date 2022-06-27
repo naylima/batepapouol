@@ -1,7 +1,6 @@
 @media  (max-width: 614px) {
     * {
         font-family: 'Roboto', sans-serif;
-        overflow-x: hidden; 
     }
 
     /* Estilo do topo*/
@@ -36,6 +35,7 @@
         padding-top: 106px;
         padding-bottom: 100px;
         background-color: #F3F3F3;
+        word-break: break-word;
     }
 
     .container p {
@@ -46,7 +46,6 @@
 
     hora {
         color: #AAAAAA;
-        font-size: 14px;
     }
 
     .publico {
@@ -92,7 +91,10 @@
     }
 
     .mensagem > div {
-        width: 75%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .mensagem input {
@@ -137,7 +139,6 @@
 
         position: fixed;
         top: 0;
-        overflow-y: scroll;
     }
 
     .fundo {
@@ -148,7 +149,7 @@
     .informacoes {
         width: 70%;
         background-color: #FFFFFF;
-        overflow-y: auto;
+        overflow-y: scroll;
     }
 
     .menu p {
