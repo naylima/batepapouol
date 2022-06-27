@@ -197,7 +197,8 @@ function escolherVisibilidade(elemento) {
     if(span.innerText === "Público") {
         visibilidade = "message";
         document.querySelector(".enviando").innerHTML = `Enviando para ${destinatario}`;
-
+        
+        
     }
 
     if(span.innerText === "Reservadamente") {
